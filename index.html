@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your Personal Blog</title>
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    color: #333;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 3rem 2rem 4rem 2rem;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+    text-align: center;
+  }
+  header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    font-size: 1.2rem;
+    opacity: 0.85;
+  }
+  nav {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+  }
+  nav a {
+    margin: 0 1.5rem;
+    text-decoration: none;
+    color: #2575fc;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #6a11cb;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  .featured-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 1.5rem;
+  }
+  .post-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .post-card:hover {
+    transform: translateY(-5px);
+  }
+  .post-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .post-content {
+    padding: 1rem 1.2rem;
+  }
+  .post-content h3 {
+    margin-bottom: 0.5rem;
+    color: #2575fc;
+  }
+  .post-content p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #2575fc;
+    color: white;
+    margin-top: 4rem;
+  }
+  /* Blog post page style */
+  .blog-post {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    padding: 2rem;
+  }
+  .blog-post h2 {
+    margin-bottom: 1rem;
+    color: #2575fc;
+  }
+  .blog-post p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 2rem;
+    }
+    nav {
+      flex-direction: column;
+    }
+    nav a {
+      margin: 0.5rem 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to Your Unique Blog</h1>
+  <p>Sharing stories, ideas, and insights that matter</p>
+</header>
+
+<nav>
+  <a href="#home" onclick="showHome()">Home</a>
+  <a href="#about" onclick="showAbout()">About Me</a>
+  <a href="#contact" onclick="showContact()">Contact</a>
+</nav>
+
+<main id="content">
+
+  <!-- Home Page Content -->
+  <section id="home-section">
+    <h2 style="text-align:center; margin-bottom: 2rem; color: #2575fc;">Featured Posts</h2>
+    <div class="featured-posts" id="posts-container">
+      <!-- Posts will be dynamically loaded here -->
+    </div>
+  </section>
+
+  <!-- About Page Content -->
+  <section id="about-section" style="display:none; max-width: 700px; margin: 2rem auto; padding: 1rem;">
+    <h2>About Me</h2>
+    <p>Hello! I'm a passionate blogger who loves to share unique perspectives on life, technology, and creativity. This blog is my space to connect with readers and build a community. Stay tuned for exciting posts!</p>
+  </section>
+
+  <!-- Contact Page Content -->
+  <section id="contact-section" style="display:none; max-width: 700px; margin: 2rem auto; padding: 1rem;">
+    <h2>Contact Me</h2>
+    <p>If you want to reach out, just send me an email at <a href="mailto:your.email@example.com">your.email@example.com</a>. I’d love to hear from you!</p>
+  </section>
+
+  <!-- Blog Post Detail (hidden by default) -->
+  <section id="post-detail" style="display:none;"></section>
+
+</main>
+
+<footer>
+  &copy; 2025 Your Personal Blog - All rights reserved
+</footer>
+
+<script>
+  // Sample blog posts data
+  const posts = [
+    {
+      id: 1,
+      title: "How to Start a Blog That Makes Money",
+      summary: "Learn the key steps to launch a successful blog and turn your passion into income.",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      content: `<p>Starting a blog is easier than ever! Here’s a quick guide to help you get started...</p><p>1. Choose your niche...</p><p>2. Set up your platform...</p><p>3. Create quality content...</p>`
+    },
+    {
+      id: 2,
+      title: "10 Tips for Better Writing",
+      summary: "Improve your writing skills with these simple but powerful tips.",
+      image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
+      content: `<p>Good writing is an essential skill for bloggers. Here are 10 tips...</p>`
+    },
+    {
+      id: 3,
+      title: "The Future of Tech Blogging",
+      summary: "Explore trends and predictions shaping the world of technology blogs.",
+      image: "https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=800&q=80",
+      content: `<p>Technology is evolving fast, and blogging keeps pace with it. Discover what’s next...</p>`
+    }
+  ];
+
+  const postsContainer = document.getElementById('posts-container');
+  const postDetail = document.getElementById('post-detail');
+  const homeSection = document.getElementById('home-section');
+  const aboutSection = document.getElementById('about-section');
+  const contactSection = document.getElementById('contact-section');
+
+  // Load posts on homepage
+  function loadPosts() {
+    postsContainer.innerHTML = '';
+    posts.forEach(post => {
+      const card = document.createElement('div');
+      card.className = 'post-card';
+      card.innerHTML = `
+        <img class="post-image" src="${post.image}" alt="${post.title}" />
+        <div class="post-content">
+          <h3>${post.title}</h3>
+          <p>${post.summary}</p>
+        </div>
+      `;
+      card.onclick = () => showPost(post.id);
+      postsContainer.appendChild(card);
+    });
+  }
+
+  // Show a single post
+  function showPost(id) {
+    const post = posts.find(p => p.id === id);
+    if (!post) return;
+    homeSection.style.display = 'none';
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    postDetail.style.display = 'block';
+    postDetail.className = 'blog-post';
+    postDetail.innerHTML = `
+      <h2>${post.title}</h2>
+      ${post.content}
+      <button onclick="showHome()" style="margin-top: 1.5rem; padding: 0.5rem 1rem; background: #2575fc; color: white; border:none; border-radius: 5px; cursor:pointer;">Back to Home</button>
+    `;
+  }
+
+  // Show home page
+  function showHome() {
+    postDetail.style.display = 'none';
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    homeSection.style.display = 'block';
+  }
+
+  // Show about page
+  function showAbout() {
+    postDetail.style.display = 'none';
+    homeSection.style.display = 'none';
+    contactSection.style.display = 'none';
+    aboutSection.style.display = 'block';
+  }
+
+  // Show contact page
+  function showContact() {
+    postDetail.style.display = 'none';
+    homeSection.style.display = 'none';
+    aboutSection.style.display = 'none';
+    contactSection.style.display = 'block';
+  }
+
+  // Initial load
+  loadPosts();
+</script>
+
+</body>
+</html>
